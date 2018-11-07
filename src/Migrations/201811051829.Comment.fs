@@ -1,7 +1,7 @@
 namespace Migrations
 open SimpleMigrations
 
-[<Migration(201811071444L, "Create Comments")>]
+[<Migration(201811051829L, "Create Comments")>]
 type CreateComments() =
   inherit Migration()
 

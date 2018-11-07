@@ -2,6 +2,7 @@ module AuthData
 
 open Microsoft.AspNetCore.Http
 open System.Security.Claims
+open Microsoft.AspNetCore.Http
 
 let getUserName (ctx: HttpContext) =
     if isNull ctx.User then

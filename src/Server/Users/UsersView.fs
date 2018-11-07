@@ -1,59 +1,94 @@
 namespace Users
 
+open Giraffe.GiraffeViewEngine
+
 module View =
+  let login ctx failed =
+    let validationMessage =
+      div [_class "notification is-danger"] [
+        a [_class "delete"; attr "aria-label" "delete"] []
+        rawText "Wrong login or password"
+      ]
 
-    open Giraffe.GiraffeViewEngine
+    let field typ lbl key =
+      div [_class "field"] [
+        yield label [_class "label"] [rawText (string lbl)]
+        yield div [_class "control has-icons-right"] [
+          yield input [_class "input"; _name key ; _type typ]
+        ]
+      ]
 
-    let userForm (method : string) (action : string) (submitText : string) =
-        form [_method method; _action action] [
-            div [_class "field"] [
-                label [_for "username"] [ rawText "Username:" ]
-                div [_class "control" ] [
-                    input [_class "input"; _id "username"; _name "username"; _type "text"]
-                ]
+
+    let buttons =
+      div [_class "field is-grouped"] [
+        div [_class "control"] [
+          input [_type "submit"; _class "button is-link"; _value "Submit"]
+        ]
+        div [_class "control"] [
+          a [_class "button is-text"; _href "/"] [rawText "Cancel"]
+        ]
+      ]
+
+    let cnt = [
+      div [_class "box"] [
+        h2 [] [rawText "Login"]
+        div [_class "container "] [
+            form [ _action "/login"; _method "post"] [
+            if failed then
+                yield validationMessage
+            yield field "text" "Username" "username"
+            yield field "password" "Password" "password"
+            yield buttons
             ]
-            div [_class "field"] [
-                label [_for "password"] [ rawText "Password:" ]
-                div [_class "control";] [
-                    input [_class "input"; _id "password"; _name "password"; _type "password"]
-                ]
-            ]
-            div [_class "field is-grouped"] [
-                div [_class "control"] [
-                    button [_type "submit"; _class "button is-link"] [rawText submitText]
-                ]
-                div [_class "control"] [
-                    button [_type "reset"; _class "button is-text"] [rawText "Clear"]
-                ]
+          ]
+        ]
+      ]
+
+    App.layout ctx ([section [_class "section"] cnt])
+
+  let signup ctx (validationResult : Map<string, string>) =
+    let validationMessage =
+      div [_class "notification is-danger"] [
+        a [_class "delete"; attr "aria-label" "delete"] []
+        rawText "Oops, something went wrong! Please check the errors below."
+      ]
+
+    let field typ lbl key =
+      div [_class "field"] [
+        yield label [_class "label"] [rawText (string lbl)]
+        yield div [_class "control has-icons-right"] [
+          yield input [_class (if validationResult.ContainsKey key then "input is-danger" else "input"); _name key ; _type typ ]
+          if validationResult.ContainsKey key then
+            yield span [_class "icon is-small is-right"] [
+              i [_class "fas fa-exclamation-triangle"] []
             ]
         ]
+        if validationResult.ContainsKey key then
+          yield p [_class "help is-danger"] [rawText validationResult.[key]]
+      ]
 
-    let loginView =
-        [
-            div [_class "container" ] [
-                h1 [_class "is-size-2"] [ rawText "Login" ]
-                userForm "POST" "/users/login" "Submit"
+    let buttons =
+      div [_class "field is-grouped"] [
+        div [_class "control"] [
+          input [_type "submit"; _class "button is-link"; _value "Submit"]
+        ]
+        div [_class "control"] [
+          a [_class "button is-text"; _href "/"] [rawText "Cancel"]
+        ]
+      ]
+
+    let cnt = [
+      div [_class "box"] [
+        h2 [] [rawText "Sign Up"]
+        div [_class "container "] [
+            form [ _action "/signup"; _method "post"] [
+            if not validationResult.IsEmpty then
+                yield validationMessage
+            yield field "text" "Username" "username"
+            yield field "password" "Password" "password"
+            yield buttons
             ]
         ]
-
-    let createUserView isError =
-        [
-            div [_class "container" ] [
-                yield h1 [_class "is-size-2"] [ rawText "Signup" ]
-                if isError then
-                    yield! [
-                        div [_class "notification is-danger"] [
-                            rawText "Something went wrong...sorry :("
-                        ]
-                    ]
-                else
-                    yield! [ ]
-                yield userForm "POST" "/users/signup" "Submit"
-            ]
         ]
-
-    let loginLayout ctx =
-        App.layout ctx loginView
-
-    let createUserLayout isError ctx =
-        App.layout ctx (createUserView isError)
+    ]
+    App.layout ctx ([section [_class "section"] cnt])

@@ -5,9 +5,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="201811071103.User.fs" />
-    <Compile Include="201811071430.Article.fs" />
-    <Compile Include="201811071444.Comment.fs" />
+
+    <Compile Include="201811051341.User.fs" />
+    <Compile Include="201811051400.Article.fs" />
+    <Compile Include="201811051829.Comment.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

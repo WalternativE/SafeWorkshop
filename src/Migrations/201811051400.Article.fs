@@ -1,7 +1,7 @@
 namespace Migrations
 open SimpleMigrations
 
-[<Migration(201811071430L, "Create Articles")>]
+[<Migration(201811051400L, "Create Articles")>]
 type CreateArticles() =
   inherit Migration()
 

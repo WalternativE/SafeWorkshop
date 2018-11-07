@@ -23,14 +23,8 @@ let layout (ctx: HttpContext) (content: XmlNode list)  =
                 ]
                 div [_class "navbar-menu"; _id "navMenu"] [
                     div [_class "navbar-start"] [
-                        yield a [_class "navbar-item"; _href "https://github.com/SaturnFramework/Saturn/blob/master/README.md"] [rawText "Getting started"]
-                        yield span [_class "navbar-item"] [rawText (AuthData.getUserName ctx)]
-                        yield!
-                            (if AuthData.isAuth ctx then 
-                                [ a [_class "navbar-item"; _href "/articles"] [rawText "Articles"]
-                                  a [_class "navbar-item"; _href "/users/logout"] [rawText "Logout"] ]
-                             else
-                                [ a [_class "navbar-item"; _href "/users/login"] [rawText "Login"] ])
+                        a [_class "navbar-item"; _href "https://github.com/SaturnFramework/Saturn/blob/master/README.md"] [rawText "Getting started"]
+                        span [_class "navbar-item"] [rawText (AuthData.getUserName ctx)]
                     ]
                 ]
             ]

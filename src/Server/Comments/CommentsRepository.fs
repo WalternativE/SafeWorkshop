@@ -12,6 +12,12 @@ module Database =
       return! query connection "SELECT id, author_id, article_id, date, content FROM Comments" None
     }
 
+  let getAllForArticle connectionString id : Task<Result<Comment seq, exn>> =
+    task {
+      use connection = new SqliteConnection(connectionString)
+      return! query connection "SELECT id, author_id, article_id, date, content FROM Comments WHERE article_id=@id" (Some <| dict ["id" => id])
+    }
+
   let getById connectionString id : Task<Result<Comment option, exn>> =
     task {
       use connection = new SqliteConnection(connectionString)
