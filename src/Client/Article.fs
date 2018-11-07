@@ -10,6 +10,7 @@ open Fable.Core.JsInterop
 open Fulma
 open Fable.Helpers.React
 open Fable.Helpers.React.Props
+open Shared
 
 type State =
     | Edit

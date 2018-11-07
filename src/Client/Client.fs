@@ -52,7 +52,7 @@ let view (model : Model) (dispatch : Msg -> unit) =
                 [ Heading.h2 [ ]
                     [ str "SAFE Template" ] ] ]
 
-          Container.container []
+          Container.container [ Container.Props [ Style [ PaddingTop 12 ] ] ]
               [ Content.content []
                     [el]
               ]

@@ -3,6 +3,7 @@ namespace Articles
 open Microsoft.AspNetCore.Http
 open Giraffe.GiraffeViewEngine
 open Saturn
+open Shared
 
 module Views =
   let index (ctx : HttpContext) (objs : Article list) =

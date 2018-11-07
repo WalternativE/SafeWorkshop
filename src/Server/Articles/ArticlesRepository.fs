@@ -4,6 +4,7 @@ open Database
 open Microsoft.Data.Sqlite
 open System.Threading.Tasks
 open FSharp.Control.Tasks.ContextInsensitive
+open Shared
 
 module Database =
   let getAll connectionString : Task<Result<Article seq, exn>> =

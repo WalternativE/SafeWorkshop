@@ -7,6 +7,7 @@ open Saturn
 open Giraffe.Auth
 open Microsoft.AspNetCore.Authentication.Cookies
 open Giraffe.Core
+open Shared
 
 module Controller =
 
