@@ -29,6 +29,7 @@ let browserRouter = router {
     forward "" defaultView //Use the default view
     forward "/client" clientApp //Use the client application
     forward "/users" Users.Controller.router
+    forward "/articles" Articles.Controller.resource
 }
 
 //Other scopes may use different pipelines and error handlers

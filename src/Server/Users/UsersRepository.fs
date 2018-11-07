@@ -18,10 +18,12 @@ module Database =
       return! querySingle connection "SELECT id, username, password, role FROM Users WHERE id=@id" (Some <| dict ["id" => id])
     }
 
-  let getByName connectionString name : Task<Result<User option, exn>> =
+  let getByNameAndPassword connectionString name password : Task<Result<User option, exn>> =
     task {
       use connection = new SqliteConnection(connectionString)
-      return! querySingle connection "SELECT id, username, password, role FROM Users WHERE name=@name" name
+      let pars = Some <| dict ["u" => name; "p" => password]
+      let! res = querySingle connection "SELECT id, username, password, role FROM Users WHERE username=@u AND password=@p" pars
+      return res
     }
 
   let update connectionString v : Task<Result<int,exn>> =

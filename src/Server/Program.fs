@@ -5,6 +5,7 @@ open Config
 open Microsoft.Extensions.DependencyInjection
 open Giraffe.Serialization
 open System.IO
+open Microsoft.AspNetCore.Http
 
 let publicPath = Path.GetFullPath "../Client/public"
 
@@ -23,6 +24,11 @@ let configureSerialization (services:IServiceCollection) =
 
 let app = application {
     pipe_through endpointPipe
+
+    use_cookies_authentication_with_config (fun opts ->
+        opts.LoginPath <- PathString "/users/login"
+        opts.LoginPath <- PathString "/users/logout"
+    )
 
     error_handler (fun ex _ -> pipeline { render_html (InternalError.layout ex) })
     use_router Router.appRouter

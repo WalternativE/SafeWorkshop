@@ -32,7 +32,7 @@ module View =
         [
             div [_class "container" ] [
                 h1 [_class "is-size-2"] [ rawText "Login" ]
-                userForm "POST" "/login" "Submit"
+                userForm "POST" "/users/login" "Submit"
             ]
         ]
 
@@ -41,7 +41,11 @@ module View =
             div [_class "container" ] [
                 yield h1 [_class "is-size-2"] [ rawText "Signup" ]
                 if isError then
-                    yield! [ p [] [rawText "THERE IS AN ERROR"] ]
+                    yield! [
+                        div [_class "notification is-danger"] [
+                            rawText "Something went wrong...sorry :("
+                        ]
+                    ]
                 else
                     yield! [ ]
                 yield userForm "POST" "/users/signup" "Submit"

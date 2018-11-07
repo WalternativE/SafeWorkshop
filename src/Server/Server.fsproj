@@ -18,6 +18,14 @@
         <Compile Include="Users\UsersModel.fs" />
         <Compile Include="Users\UsersRepository.fs" />
         <Compile Include="Users\UsersController.fs" />
+    <Compile Include="Articles\ArticlesModel.fs" />
+    <Compile Include="Articles\ArticlesViews.fs" />
+    <Compile Include="Articles\ArticlesRepository.fs" />
+    <Compile Include="Articles\ArticlesController.fs" />
+    <Compile Include="Comments\CommentsModel.fs" />
+    <Compile Include="Comments\CommentsViews.fs" />
+    <Compile Include="Comments\CommentsRepository.fs" />
+    <Compile Include="Comments\CommentsController.fs" />
         <Compile Include="Router.fs" />
         <Compile Include="Program.fs" />
 
